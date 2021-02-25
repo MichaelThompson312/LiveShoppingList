@@ -5,8 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 const arr = () => {
-  let data = localStorage.getItem("data");
-  if (data) return JSON.parse(localStorage.getItem("data"));
+  let data = localStorage.getItem("list");
+  if (data) return JSON.parse(localStorage.getItem("list"));
   else return [];
 };
 
@@ -21,7 +21,6 @@ function App() {
       store: e.target[1].value,
       complete: false,
     };
-    console.log(newItem);
     e.preventDefault();
     if (item && item.length <= 25) {
       setList([...list, newItem]);
@@ -33,10 +32,20 @@ function App() {
     setItem(e.target.value);
   };
 
+  //Basic components
+  function Header2(props) {
+    return <h1>Who needs {props.title} list anyway</h1>;
+  }
+
+
+  //JSx produces React elements
+  const header = <h1>Grocery List</h1>;
+
   return (
     <div className="App">
-      <h1>Grocery List</h1>
-      <form onSubmit={handleSubmit}>
+      {header} 
+      <Header2 title="paper" />
+      <form className="inputForm" onSubmit={handleSubmit}>
         <input
           className="input"
           type="text"
@@ -58,6 +67,7 @@ function App() {
       </form>
       <div>
         {list.map((c, id) => (
+          
           <Item
             key={id}
             id={c.id}
